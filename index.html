@@ -112,6 +112,66 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* LANGUAGE SWITCHER */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2px;
+            cursor: pointer;
+            position: relative;
+            width: 70px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-switcher:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+
+        .lang-switcher .toggle-btn {
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            width: 32px;
+            height: 26px;
+            background: var(--neon);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-switcher.en .toggle-btn {
+            left: calc(100% - 34px);
+        }
+
+        .lang-switcher .labels {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 800;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .lang-switcher .labels span {
+            width: 30px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .lang-switcher.es .labels .es,
+        .lang-switcher.en .labels .en {
+            color: #000;
+        }
     </style>
 </head>
 
@@ -127,13 +187,20 @@
             </span>
         </div>
         <div class="flex gap-4 items-center">
+            <div id="langToggle" class="lang-switcher es" onclick="toggleLanguage()">
+                <div class="toggle-btn"></div>
+                <div class="labels">
+                    <span class="es">ES</span>
+                    <span class="en">EN</span>
+                </div>
+            </div>
             <div class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest mr-4">
-                <a href="#inicio" class="hover:text-green-400 transition">Inicio</a>
-                <a href="#privacidad" class="hover:text-green-400 transition">Privacidad</a>
-                <a href="#contacto" class="text-green-400 hover:text-white transition">Contacto</a>
+                <a href="#inicio" class="hover:text-green-400 transition" data-i18n="nav_home">Inicio</a>
+                <a href="#privacidad" class="hover:text-green-400 transition" data-i18n="nav_privacy">Privacidad</a>
+                <a href="#contacto" class="text-green-400 hover:text-white transition" data-i18n="nav_contact">Contacto</a>
             </div>
             <a href="https://play.google.com/store/apps/details?id=com.martin.sportquantumstats" target="_blank"
-                class="btn-quantum px-5 py-2 rounded-full text-[9px] md:text-[10px] uppercase">
+                class="btn-quantum px-5 py-2 rounded-full text-[9px] md:text-[10px] uppercase" data-i18n="nav_playstore">
                 Play Store
             </a>
         </div>
@@ -145,11 +212,11 @@
                 <img src="logo.png" alt="Logo Quantum" class="w-full h-full object-contain logo-filter p-3">
             </div>
         </div>
-        <h1 class="text-4xl md:text-7xl font-quantum font-bold mb-6 uppercase leading-tight tracking-tighter">
+        <h1 class="text-4xl md:text-7xl font-quantum font-bold mb-6 uppercase leading-tight tracking-tighter" data-i18n="hero_title">
             Registrá el deporte <br> <span class="neon-text italic">en tiempo real</span>
         </h1>
 
-        <p class="text-zinc-400 text-lg md:text-xl max-w-4xl mx-auto mb-12 leading-relaxed">
+        <p class="text-zinc-400 text-lg md:text-xl max-w-4xl mx-auto mb-12 leading-relaxed" data-i18n="hero_desc">
             "La plataforma definitiva para el registro de estadísticas deportivas. Registrá cada acción del juego desde
             tu celular y obtené informes al instante.
             Diseñada para potenciar el trabajo de periodistas deportivos, entrenadores y fanáticos de las estadísticas."
@@ -157,11 +224,11 @@
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
             <a href="https://play.google.com/store/apps/details?id=com.martin.sportquantumstats" target="_blank"
-                class="btn-quantum px-12 py-5 rounded-xl text-sm uppercase tracking-widest inline-block w-full sm:w-auto">
+                class="btn-quantum px-12 py-5 rounded-xl text-sm uppercase tracking-widest inline-block w-full sm:w-auto" data-i18n="hero_cta">
                 Descargar en Play Store
             </a>
             <div class="glass px-8 py-5 rounded-xl border border-white/10 font-quantum text-zinc-500 w-full sm:w-auto">
-                PRECIO: <span class="text-white ml-2 text-xl font-bold">$001</span>
+                <span data-i18n="hero_price_label">PRECIO:</span> <span class="text-white ml-2 text-xl font-bold">$001</span>
             </div>
         </div>
     </header>
@@ -169,33 +236,33 @@
     <section id="screenshots" class="reveal py-24 px-6">
         <div class="max-w-6xl mx-auto">
             <h2
-                class="font-quantum text-center text-2xl mb-16 uppercase tracking-widest border-b border-green-500/20 pb-4 inline-block mx-auto flex justify-center">
+                class="font-quantum text-center text-2xl mb-16 uppercase tracking-widest border-b border-green-500/20 pb-4 inline-block mx-auto flex justify-center" data-i18n="screenshots_title">
                 Interfaz Profesional</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
                 <div class="screenshot-card glass p-4 rounded-[2.5rem] border border-white/5">
-                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest">1
+                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest" data-i18n="screen_1">1
                         pantalla principal</p>
                     <img src="assets/screen1.png" alt="Pantalla Principal"
                         class="rounded-[1.5rem] w-full border border-white/10">
                 </div>
 
                 <div class="screenshot-card glass p-4 rounded-[2.5rem] border border-white/5">
-                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest">2
+                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest" data-i18n="screen_2">2
                         tablero control futbol</p>
                     <img src="assets/screen2.png" alt="Tablero Futbol"
                         class="rounded-[1.5rem] w-full border border-white/10">
                 </div>
 
                 <div class="screenshot-card glass p-4 rounded-[2.5rem] border border-white/5">
-                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest">3
+                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest" data-i18n="screen_3">3
                         tablero control rugby</p>
                     <img src="assets/screen3.png" alt="Tablero Rugby"
                         class="rounded-[1.5rem] w-full border border-white/10">
                 </div>
 
                 <div class="screenshot-card glass p-4 rounded-[2.5rem] border border-white/5">
-                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest">4
+                    <p class="text-[10px] font-quantum text-center mb-4 text-green-500 uppercase tracking-widest" data-i18n="screen_4">4
                         pantalla registro</p>
                     <img src="assets/screen4.png" alt="Pantalla Registro"
                         class="rounded-[1.5rem] w-full border border-white/10">
@@ -207,70 +274,70 @@
 
     <section id="privacidad" class="reveal py-20 px-6 max-w-5xl mx-auto">
         <div class="glass p-8 md:p-16 rounded-[40px]">
-            <h2 class="font-quantum text-2xl mb-12 border-l-4 border-green-500 pl-4 uppercase">Política de Privacidad
+            <h2 class="font-quantum text-2xl mb-12 border-l-4 border-green-500 pl-4 uppercase" data-i18n="privacy_title">Política de Privacidad
             </h2>
 
             <div class="space-y-10 text-zinc-300 text-sm leading-relaxed">
-                <p class="text-zinc-500"><strong>Última actualización:</strong> 3 de abril de 2026</p>
-                <p>La Empresa opera la aplicación móvil Sports Quantum Stats (en adelante, el "Servicio"). Esta página
+                <p class="text-zinc-500" data-i18n="privacy_date"><strong>Última actualización:</strong> 3 de abril de 2026</p>
+                <p data-i18n="privacy_intro">La Empresa opera la aplicación móvil Sports Quantum Stats (en adelante, el "Servicio"). Esta página
                     le informa sobre nuestras políticas relativas a la recopilación, uso y divulgación de datos
                     personales cuando utiliza nuestro servicio.</p>
 
                 <div class="space-y-8">
                     <div>
-                        <h3 class="text-white font-bold text-lg mb-2">1. Recopilación y Uso de la Información</h3>
-                        <p>Para una mejor experiencia al utilizar nuestro Servicio, la aplicación funciona
+                        <h3 class="text-white font-bold text-lg mb-2" data-i18n="privacy_sec1_title">1. Recopilación y Uso de la Información</h3>
+                        <p data-i18n="privacy_sec1_desc">Para una mejor experiencia al utilizar nuestro Servicio, la aplicación funciona
                             principalmente de manera local para el registro de datos y estadísticas deportivas en tiempo
                             real. Es posible que recopilemos o utilicemos la siguiente información:</p>
                         <ul class="list-disc pl-6 mt-2 space-y-2">
-                            <li><strong>Datos de Identificación:</strong> Actualmente, la aplicación no requiere
+                            <li data-i18n="privacy_sec1_item1"><strong>Datos de Identificación:</strong> Actualmente, la aplicación no requiere
                                 registro de cuentas de usuario, por lo que no recopilamos nombres, contraseñas ni
                                 correos electrónicos de forma directa.</li>
-                            <li><strong>Datos de Uso:</strong> Información de diagnóstico básica generada
+                            <li data-i18n="privacy_sec1_item2"><strong>Datos de Uso:</strong> Información de diagnóstico básica generada
                                 automáticamente, como la dirección IP, el modelo del dispositivo o la versión del
                                 sistema operativo.</li>
-                            <li><strong>Permisos de Dispositivo:</strong> Utilizamos almacenamiento local para guardar
+                            <li data-i18n="privacy_sec1_item3"><strong>Permisos de Dispositivo:</strong> Utilizamos almacenamiento local para guardar
                                 estadísticas y funciones de compartir para exportar informes.</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-lg mb-2">2. Proveedores de Servicios (Terceros)</h3>
-                        <p>Podemos emplear a terceras empresas para facilitar nuestro Servicio o analizar su uso. Esta
+                        <h3 class="text-white font-bold text-lg mb-2" data-i18n="privacy_sec2_title">2. Proveedores de Servicios (Terceros)</h3>
+                        <p data-i18n="privacy_sec2_desc">Podemos emplear a terceras empresas para facilitar nuestro Servicio o analizar su uso. Esta
                             aplicación utiliza los siguientes servicios que pueden recopilar información:</p>
                         <ul class="list-disc pl-6 mt-2">
                             <li><strong class="text-green-400">Google Play Services</strong></li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-lg mb-2">3. Seguridad</h3>
-                        <p>Valoramos su confianza al utilizar nuestra aplicación. Nos esforzamos por proteger sus datos
+                        <h3 class="text-white font-bold text-lg mb-2" data-i18n="privacy_sec3_title">3. Seguridad</h3>
+                        <p data-i18n="privacy_sec3_desc">Valoramos su confianza al utilizar nuestra aplicación. Nos esforzamos por proteger sus datos
                             mediante medios comercialmente aceptables. Pero recuerde que ningún método de transmisión
                             por Internet o método de almacenamiento electrónico es 100% seguro y fiable.</p>
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-lg mb-2">4. Privacidad de los Niños</h3>
-                        <p>Estos Servicios no se dirigen a menores de 13 años, ya que están diseñados como una
+                        <h3 class="text-white font-bold text-lg mb-2" data-i18n="privacy_sec4_title">4. Privacidad de los Niños</h3>
+                        <p data-i18n="privacy_sec4_desc">Estos Servicios no se dirigen a menores de 13 años, ya que están diseñados como una
                             herramienta para periodistas deportivos y profesionales. No recopilamos a sabiendas
                             información de identificación personal de niños menores de 13 años. Si descubrimos que un
                             menor nos ha proporcionado información, la eliminamos inmediatamente.</p>
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-lg mb-2">5. Cambios en esta Política</h3>
-                        <p>Es posible que actualicemos nuestra Política de Privacidad periódicamente. Se le recomienda
+                        <h3 class="text-white font-bold text-lg mb-2" data-i18n="privacy_sec5_title">5. Cambios en esta Política</h3>
+                        <p data-i18n="privacy_sec5_desc">Es posible que actualicemos nuestra Política de Privacidad periódicamente. Se le recomienda
                             revisar esta página con frecuencia para ver si hay cambios. Las modificaciones entrarán en
                             vigor inmediatamente después de su publicación.</p>
                     </div>
 
                     <div id="contacto" class="pt-10 border-t border-white/10 text-center md:text-left">
-                        <h3 class="text-white font-bold text-lg mb-4">6. Soporte Técnico y Contacto</h3>
-                        <p class="mb-8 text-zinc-400">Si tiene alguna pregunta o sugerencia sobre nuestra aplicación o
+                        <h3 class="text-white font-bold text-lg mb-4" data-i18n="contact_title">6. Soporte Técnico y Contacto</h3>
+                        <p class="mb-8 text-zinc-400" data-i18n="contact_desc">Si tiene alguna pregunta o sugerencia sobre nuestra aplicación o
                             Política de Privacidad, contáctenos directamente.</p>
 
                         <div class="mb-6 font-bold text-green-400 text-lg tracking-wider font-quantum">
                             quantumsportstats@gmail.com</div>
 
                         <a href="mailto:quantumsportstats@gmail.com?subject=Soporte%20Sports%20Quantum%20Stats"
-                            class="btn-quantum px-8 py-5 rounded-2xl inline-flex items-center gap-4 transition-transform active:scale-95 uppercase text-xs tracking-widest">
+                            class="btn-quantum px-8 py-5 rounded-2xl inline-flex items-center gap-4 transition-transform active:scale-95 uppercase text-xs tracking-widest" data-i18n="contact_cta">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -291,7 +358,7 @@
             </div>
             <span class="font-quantum text-sm uppercase">SPORTS QUANTUM <span class="text-green-500">STATS</span></span>
         </div>
-        <p class="text-zinc-600 text-[10px] tracking-widest font-bold uppercase">
+        <p class="text-zinc-600 text-[10px] tracking-widest font-bold uppercase" data-i18n="footer_dev">
             © 2026 | Desarrollado por Martin | Buenos Aires, Argentina
         </p>
     </footer>
@@ -307,7 +374,120 @@
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // i18n Logic
+        const translations = {
+            es: {
+                nav_home: "Inicio",
+                nav_privacy: "Privacidad",
+                nav_contact: "Contacto",
+                nav_playstore: "Play Store",
+                hero_title: 'Registrá el deporte <br> <span class="neon-text italic">en tiempo real</span>',
+                hero_desc: '"La plataforma definitiva para el registro de estadísticas deportivas. Registrá cada acción del juego desde tu celular y obtené informes al instante. Diseñada para potenciar el trabajo de periodistas deportivos, entrenadores y fanáticos de las estadísticas."',
+                hero_cta: "Descargar en Play Store",
+                hero_price_label: "PRECIO:",
+                screenshots_title: "Interfaz Profesional",
+                screen_1: "1 pantalla principal",
+                screen_2: "2 tablero control futbol",
+                screen_3: "3 tablero control rugby",
+                screen_4: "4 pantalla registro",
+                privacy_title: "Política de Privacidad",
+                privacy_date: "<strong>Última actualización:</strong> 3 de abril de 2026",
+                privacy_intro: 'La Empresa opera la aplicación móvil Sports Quantum Stats (en adelante, el "Servicio"). Esta página le informa sobre nuestras políticas relativas a la recopilación, uso y divulgación de datos personales cuando utiliza nuestro servicio.',
+                privacy_sec1_title: "1. Recopilación y Uso de la Información",
+                privacy_sec1_desc: "Para una mejor experiencia al utilizar nuestro Servicio, la aplicación funciona principalmente de manera local para el registro de datos y estadísticas deportivas en tiempo real. Es posible que recopilemos o utilicemos la siguiente información:",
+                privacy_sec1_item1: "<strong>Datos de Identificación:</strong> Actualmente, la aplicación no requiere registro de cuentas de usuario, por lo que no recopilamos nombres, contraseñas ni correos electrónicos de forma directa.",
+                privacy_sec1_item2: "<strong>Datos de Uso:</strong> Información de diagnóstico básica generada automáticamente, como la dirección IP, el modelo del dispositivo o la versión del sistema operativo.",
+                privacy_sec1_item3: "<strong>Permisos de Dispositivo:</strong> Utilizamos almacenamiento local para guardar estadísticas y funciones de compartir para exportar informes.",
+                privacy_sec2_title: "2. Proveedores de Servicios (Terceros)",
+                privacy_sec2_desc: "Podemos emplear a terceras empresas para facilitar nuestro Servicio o analizar su uso. Esta aplicación utiliza los siguientes servicios que pueden recopilar información:",
+                privacy_sec3_title: "3. Seguridad",
+                privacy_sec3_desc: "Valoramos su confianza al utilizar nuestra aplicación. Nos esforzamos por proteger sus datos mediante medios comercialmente aceptables. Pero recuerde que ningún método de transmisión por Internet o método de almacenamiento electrónico es 100% seguro y fiable.",
+                privacy_sec4_title: "4. Privacidad de los Niños",
+                privacy_sec4_desc: "Estos Servicios no se dirigen a menores de 13 años, ya que están diseñados como una herramienta para periodistas deportivos y profesionales. No recopilamos a sabiendas información de identificación personal de niños menores de 13 años. Si descubrimos que un menor nos ha proporcionado información, la eliminamos inmediatamente.",
+                privacy_sec5_title: "5. Cambios en esta Política",
+                privacy_sec5_desc: "Es posible que actualicemos nuestra Política de Privacidad periódicamente. Se le recomienda revisar esta página con frecuencia para ver si hay cambios. Las modificaciones entrarán en vigor inmediatamente después de su publicación.",
+                contact_title: "6. Soporte Técnico y Contacto",
+                contact_desc: "Si tiene alguna pregunta o sugerencia sobre nuestra aplicación o Política de Privacidad, contáctenos directamente.",
+                contact_cta: '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="m22 6-10 7L2 6" /></svg> Enviar Correo Directo',
+                footer_dev: "© 2026 | Desarrollado por Martin | Buenos Aires, Argentina"
+            },
+            en: {
+                nav_home: "Home",
+                nav_privacy: "Privacy",
+                nav_contact: "Contact",
+                nav_playstore: "Play Store",
+                hero_title: 'Record sports <br> <span class="neon-text italic">in real time</span>',
+                hero_desc: '"The ultimate platform for recording sports statistics. Record every game action from your phone and get instant reports. Designed to boost the work of sports journalists, coaches, and statistics fans."',
+                hero_cta: "Download on Play Store",
+                hero_price_label: "PRICE:",
+                screenshots_title: "Professional Interface",
+                screen_1: "1 main screen",
+                screen_2: "2 football dashboard",
+                screen_3: "3 rugby dashboard",
+                screen_4: "4 registration screen",
+                privacy_title: "Privacy Policy",
+                privacy_date: "<strong>Last updated:</strong> April 3, 2026",
+                privacy_intro: 'The Company operates the Sports Quantum Stats mobile application (hereinafter, the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our service.',
+                privacy_sec1_title: "1. Information Collection and Use",
+                privacy_sec1_desc: "For a better experience while using our Service, the application works mainly locally for recording sports data and statistics in real-time. We may collect or use the following information:",
+                privacy_sec1_item1: "<strong>Identification Data:</strong> Currently, the application does not require user account registration, so we do not collect names, passwords, or emails directly.",
+                privacy_sec1_item2: "<strong>Usage Data:</strong> Basic diagnostic information generated automatically, such as IP address, device model, or operating system version.",
+                privacy_sec1_item3: "<strong>Device Permissions:</strong> We use local storage to save statistics and sharing functions to export reports.",
+                privacy_sec2_title: "2. Service Providers (Third Parties)",
+                privacy_sec2_desc: "We may employ third-party companies to facilitate our Service or analyze its use. This application uses the following services that may collect information:",
+                privacy_sec3_title: "3. Security",
+                privacy_sec3_desc: "We value your trust in using our application. We strive to protect your data using commercially acceptable means. But remember that no method of transmission over the Internet or method of electronic storage is 100% secure and reliable.",
+                privacy_sec4_title: "4. Children's Privacy",
+                privacy_sec4_desc: "These Services do not address anyone under the age of 13, as they are designed as a tool for sports journalists and professionals. We do not knowingly collect personally identifiable information from children under 13. If we discover that a minor has provided us with information, we delete it immediately.",
+                privacy_sec5_title: "5. Changes to this Policy",
+                privacy_sec5_desc: "We may update our Privacy Policy from time to time. We recommend that you review this page frequently for any changes. Changes are effective immediately after they are posted.",
+                contact_title: "6. Technical Support and Contact",
+                contact_desc: "If you have any questions or suggestions about our app or Privacy Policy, please contact us directly.",
+                contact_cta: '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="m22 6-10 7L2 6" /></svg> Send Direct Email',
+                footer_dev: "© 2026 | Developed by Martin | Buenos Aires, Argentina"
+            }
+        };
+
+        let currentLang = localStorage.getItem('preferredLanguage') || 'es';
+
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+
+            // Update toggle class
+            const langToggle = document.getElementById('langToggle');
+            langToggle.classList.remove('es', 'en');
+            langToggle.classList.add(currentLang);
+            
+            // Update document title and description
+            document.title = currentLang === 'es' ? "Sports Quantum Stats | Sitio Oficial" : "Sports Quantum Stats | Official Site";
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.content = currentLang === 'es' 
+                    ? "La plataforma definitiva diseñada para potenciar el análisis deportivo. Orientada a periodistas, entrenadores, analistas de rendimiento y fanáticos apasionados."
+                    : "The ultimate platform designed to boost sports analysis. Aimed at journalists, coaches, performance analysts, and passionate fans.";
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            localStorage.setItem('preferredLanguage', currentLang);
+            updateContent();
+        }
+
+        // Initialize content
+        window.addEventListener('scroll', () => {
+             // Keep existing scroll intersection logic separate if needed, but it's handled by 'observer'
+        });
+
+        updateContent();
     </script>
+
 
 </body>
 
